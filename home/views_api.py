@@ -92,12 +92,14 @@ class RegisterView(APIView):
             Profile.objects.create(user=user_obj, token=token,
                                    is_verified=True)
             # send_mail_to_user(token , data.get('username'))
-            response['message'] = 'User created '
+            response['message'] = 'User created successfully'
             response['status'] = 200
         except Exception as e:
             print(e)
+            response['message'] = 'Error creating user: {}'.format(str(e))
 
-            return Response(response)
+        return Response(response)
+
 
 
 RegisterView = RegisterView.as_view()
